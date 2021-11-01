@@ -18,20 +18,21 @@ unitTesting((input) => solution(input), 5, [
 
 function solution(input) {
 	let numOfIsland = 0;
-	console.log(input);
+
 	for (let i = 0; i < input.length; i++) {
 		for (let j = 0; j < input[0].length; j++) {
-			if (input[i][j] === "1") {
+			if (grid[i][j] === "1") {
 				dfs(input, i, j);
 				numOfIsland++;
 			}
 		}
 	}
-	console.log(input);
+
 	return numOfIsland;
 }
 
 function dfs(grid, i, j) {
+	let sum = 0;
 	const direction = [
 		[-1, 0],
 		[0, 1],
@@ -44,12 +45,11 @@ function dfs(grid, i, j) {
 		i >= grid.length ||
 		j < 0 ||
 		j >= grid[0].length ||
-		grid[i][j] === "0" ||
-		grid[i][j] === "v"
+		grid[i][j] === 0
 	)
 		return; //return 0; 안해도됨
 
-	grid[i][j] = "v";
+	grid[i][j] = "0";
 
 	for (let d = 0; d < direction.length; d++) {
 		const newI = direction[d][0] + i;

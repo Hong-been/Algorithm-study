@@ -31,3 +31,14 @@ function solution(input) {
 
 	return result;
 }
+function unitTesting(func, expected, input) {
+	const result = func(input);
+	if (JSON.stringify(result) === JSON.stringify(expected))
+		console.log(
+			`PASSED, the output of the function is ${result} === ${expected}`
+		);
+	else
+		console.log(
+			`FAILED, the output of the function is ${result} !== ${expected}`
+		);
+}

@@ -3,24 +3,20 @@
 // const filePath = process.platform === "linux" ? "/dev/stdin" : "input.txt";
 // const n = Number(fs.readFileSync(filePath).toString().trim());
 
-unitTesting((input) => solution(input), 1, "1+(2*3)/(2-1)");
+unitTesting((input) => solution(input), true, [1, 1, 1, 3, 3, 4, 3, 2, 4, 2]);
 
 function solution(input) {
-	const st = [];
-	let maxDepth = 0;
-	let depth = 0;
+	input.sort((a, b) => {
+		if (a > b) return 1;
+		else return -1;
+	});
 
 	for (let i = 0; i < input.length; i++) {
-		if (input[i] === "(") {
-			st.push(input[i]);
-		} else if (input[i] === ")") {
-			depth = st.length;
-			st.pop();
-			maxDepth = maxDepth < depth ? depth : maxDepth;
+		if (i + 1 < input.length && input[i] === input[i + 1]) {
+			return true;
 		}
 	}
-
-	return maxDepth;
+	return false;
 }
 
 function unitTesting(func, expected, input) {

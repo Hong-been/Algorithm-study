@@ -20,7 +20,8 @@ function solution(root) {
 	return bfs(queue);
 }
 
-// time: worst(unbalanced binary tree) O(n), good(balanced binary tree) O(logN)
+// time: worst(unbalanced binary tree) O(n)
+// good(balanced binary tree) O(logN)-bst
 // space O(1)
 function bfs(queue) {
 	while (queue.length > 0) {

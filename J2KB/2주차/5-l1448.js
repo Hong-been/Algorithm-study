@@ -1,45 +1,25 @@
-const solution = function (grid) {
-	if (!root.val) return 0;
-
-	let good = 1;
-	const queue = [[root, []]];
-	const bfs = (curNode) => {
-		while (queue.length > 0) {
-			const [parent, path] = queue.shift();
-			if (!parent) continue;
-			const curPath = [...path, parent.val];
-
-			if (parent.left) {
-				const leftVal = parent.left.val;
-				let isGood = true;
-
-				for (let i = 0; i < curPath.length; i++) {
-					if (curPath[i] > leftVal) {
-						isGood = false;
-						break;
-					}
-				}
-				if (isGood) good++;
-			}
-
-			if (parent.right) {
-				const rightVal = parent.right.val;
-				isGood = true;
-				for (let i = 0; i < curPath.length; i++) {
-					if (curPath[i] > rightVal) {
-						isGood = false;
-						break;
-					}
-				}
-				if (isGood) good++;
-			}
-			queue.push([parent.left, curPath]);
-			queue.push([parent.right, curPath]);
-		}
-
-		return good;
-	};
+const solution = function (root) {
+	if (!root) return 0;
 	return bfs(root);
 };
+
+function bfs(root) {
+	let good = 0;
+	const queue = [[root, root.val]];
+
+	while (queue.length) {
+		const [curNode, max] = queue.shift();
+
+		if (curNode.val >= max) {
+			good++;
+			if (curNode.left) queue.push([curNode.left, curNode.val]);
+			if (curNode.right) queue.push([curNode.right, curNode.val]);
+		} else {
+			if (curNode.left) queue.push([curNode.left, max]);
+			if (curNode.right) queue.push([curNode.right, max]);
+		}
+	}
+	return good;
+}
 
 console.log(solution([3, 1, 4, 3, null, 1, 5]));

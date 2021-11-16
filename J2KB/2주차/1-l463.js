@@ -45,7 +45,7 @@ function dfs(gird,i,j){
 }
 
 time : O(N)
-space : O(1)
+space : O(N) (recursive -> call stack)
  
  */
 const solution = function (grid) {

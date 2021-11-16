@@ -1,33 +1,30 @@
 function topologicalSort(arr) {
 	if (!arr.length) return [];
-	// 1. make the tree structure
 
-	const map = {};
+	const map = new Map();
 
 	for (let i = 0; i < arr.length; i++) {
 		let [to, from] = arr[i];
 
-		to = `${to}`;
-		from = `${from}`;
-
-		if (map[from]) {
-			map[from].dest.push(to);
+		if (map.has(from)) {
+			map.set(from, { ...map.get(from), dest: [...map.get(from).dest, to] });
 		} else {
-			map[from] = {
+			map.set(from, {
 				incoming: 0,
 				dest: [to],
-			};
+			});
 		}
 
-		if (map[to]) {
-			map[to].incoming++;
+		if (map.has(to)) {
+			map.set(to, { ...map.get(to), incoming: map.get(to).incoming + 1 });
 		} else {
-			map[to] = {
+			map.set(to, {
 				incoming: 1,
 				dest: [],
-			};
+			});
 		}
 	}
+	console.log(map);
 
 	return BFS(map);
 }
@@ -38,16 +35,13 @@ function BFS(map) {
 
 	while (queue.length) {
 		const curKey = queue.shift();
-		const { incoming, dest } = map[curKey];
+		const { incoming, dest } = map.get(curKey);
 
-		//***
 		if (incoming === 0) result.push(curKey);
 
 		for (let d = dest.length - 1; d >= 0; d--) {
-			const child = map[dest[d]];
-
-			if (child.incoming > 0) child.incoming--;
-			if (child.incoming === 0) queue.push(dest[d]);
+			const child = dest[d];
+			if (--map.get(child).incoming === 0) queue.push(child);
 		}
 	}
 
@@ -55,10 +49,10 @@ function BFS(map) {
 }
 
 function findTheSource(map) {
-	for (let [key, value] of Object.entries(map)) {
+	for (let [key, value] of map) {
 		if (value.incoming === 0) return [key];
 	}
-	return [];
+	return []; //cycled tree -> can not finish the course.
 }
 
 const arr = [
@@ -70,5 +64,6 @@ const arr = [
 	[6, 3],
 	[3, 1],
 	[2, 1],
+	[1, 2],
 ];
 console.log(topologicalSort(arr));

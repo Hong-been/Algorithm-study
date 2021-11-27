@@ -25,9 +25,9 @@ console.log(
 
 /*
 N: the number of nodes(= input n)
-E : the number of Edges(= input trust.length)
+T : the number of Edges(= input trust.length)
 
-time O(N) + O(E) + O(N) -> O(N+E)
+time O(N) + O(T) + O(N) -> O(N+T)
 space O(N)
 
 Runtime: 108 ms, faster than 89.87% of JavaScript 
@@ -40,7 +40,7 @@ var findJudge = function (n, trust) {
 	const count = new Array(n + 1).fill(0); //time O(N)
 
 	for (let [person, potential] of trust) {
-		//time O(E)
+		//time O(T)
 		count[person]--;
 		count[potential]++;
 	}

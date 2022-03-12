@@ -27,52 +27,49 @@ CooP
     p
 
  */
+
 var camelMatch = function (queries, pattern) {
-	const result = new Array(queries.length).fill(null);
+	const result = [];
 
 	for (let i = 0; i < queries.length; i++) {
-		let q = 0,
-			p = 0;
-		const query = queries[i];
-
-		while (p < pattern.length && q < query.length && result[i] === null) {
-			const pa = pattern[p];
-			const qu = query[q];
-
-			if (isUpperCase(pa) && isUpperCase(qu) && pa !== qu) result[i] = false;
-			else if (isUpperCase(pa) && isUpperCase(qu) && pa === qu) {
-				p++;
-				q++;
-			} else if (isUpperCase(pa) && !isUpperCase(qu)) q++;
-			else if (!isUpperCase(pa) && isUpperCase(qu)) result[i] = false;
-			else if (!isUpperCase(pa) && !isUpperCase(qu) && pa !== qu) q++;
-			else if (!isUpperCase(pa) && !isUpperCase(qu) && pa === qu) {
-				p++;
-				q++;
-			}
-		}
-		while (p < pattern.length && result[i] === null) {
-			if (isUpperCase(pattern[p])) {
-				result[i] = false;
-				break;
-			}
-			p++;
-		}
-
-		while (q < query.length && result[i] === null) {
-			if (isUpperCase(query[q])) {
-				result[i] = false;
-				break;
-			}
-			q++;
-		}
-		if (result[i] === null) result[i] = true;
+		result.push(matchPattern(queries[i], pattern));
 	}
 	return result;
 };
+function matchPattern(query, pattern) {
+	let q = 0,
+		p = 0;
+
+	while (p < pattern.length && q < query.length) {
+		let pa = pattern[p];
+		let qu = query[q];
+
+		if (pa === qu) {
+			p++;
+			q++;
+		} else if (isUpperCase(qu)) return false;
+		else q++;
+	}
+
+	while (p < pattern.length) {
+		if (isUpperCase(pattern[p])) {
+			return false;
+		}
+		p++;
+	}
+
+	while (q < query.length) {
+		if (isUpperCase(query[q])) {
+			return false;
+		}
+		q++;
+	}
+	return true;
+}
 
 function isUpperCase(ch) {
 	return ch === ch.toUpperCase();
 }
-//Runtime: 76 ms, faster than 54.55% of JavaScript online submissions for Camelcase Matching.
-// Memory Usage: 41.7 MB, less than 9.09% of JavaScript online submissions for Camelcase Matching.
+
+// Runtime: 72 ms, faster than 95.16% of JavaScript online submissions for Camelcase Matching.
+// Memory Usage: 38.9 MB, less than 56.45% of JavaScript online submissions for Camelcase Matching.

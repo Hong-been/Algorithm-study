@@ -2,23 +2,33 @@
  * @param {number} n
  * @param {number[][]} connections
  * @return {number}
+
+[[0,1],[1,3],[2,3],[4,0],[4,5]]
+
+시작한 노드를 향해 
+들어오는 방향이면 -1
+나가는 방향이면 +1
+
+ 0 { [1,1], [4,-1] }
+ 1 { [0,-1], [3,1] }
+ 2 { [3,1] }
+ 3 { [1,-1],[2,-1] }
+ 4 { [0,1],[5,1] }
+ 5 { [4,-1] }
  
- 0{
- nei : [1,2]
- }
- 1{
- nei : [0,3]
- }
- 3{
- nei : [1,2]
- }
+ 0부터 큐에 넣는다. 0 visited.
+
+ queue = [ [4,-1]  ]
  
- 0->1->3
-     /
-    2
- 
- [[0,1],[1,3],[2,3],[4,0],[4,5]]
- 
+ while loop:
+	큐에서 뺀다. 
+
+	visited이면 continue;
+	두번째 ele가 1이면 result=3
+	5 visited 처리.
+	5의 value들을 큐에 넣는다.
+
+
  */
 var minReorder = function (n, connections) {
 	let result = 0;
@@ -60,10 +70,6 @@ var minReorder = function (n, connections) {
 
 		// connections를 반복하며 있는지 일일이 확인한다.
 		if (con[`${startCity},${curCity}`]) result++;
-
-		// for(let i=0; i<connections.length;i++){
-		//     if(connections[i][0]===startCity && connections[i][1]===curCity) result++;
-		// }
 
 		// queue에 nei를 추가한다.
 		neis = map.get(curCity).nei;

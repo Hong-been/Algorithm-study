@@ -19,7 +19,7 @@ find the longest substring where there is no duplicate char in a single string
 longest = 'cbsjdalrowhek'
 */
 
-const word = "acbsjdalrowhekw";
+const word = "acba";
 
 console.log(slidingWindow(word));
 

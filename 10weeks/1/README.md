@@ -28,3 +28,9 @@ const createAlphaMap = () => {
 	return map;
 };
 ```
+
+-----------------------------------------------
+## map vs array , reduce
+- map을 쓰다보니 array 인덱스로 훨씬 간단한걸 맵으로 생각함.
+- 0부터 시작하는 숫자 인덱스로 충분하다면 당연히 array가 편하다. 유의하기.
+- reduce로 합계를 구할 떄에, 예외처리로 `return accurate` 꼭 해주기

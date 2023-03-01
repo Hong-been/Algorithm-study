@@ -1,18 +1,14 @@
 const fs = require("fs");
 const filePath = process.platform === "linux" ? "/dev/stdin" : "input.txt";
 const inputs = fs.readFileSync(filePath).toString().trim().split("\n");
-inputs.forEach((input, i) => (inputs[i] = Number(input)));
-// const nums = inputs[0].split(" ");
+// 9996에서 trim뺏더니 틀림 ;;
 
-// 한 라인에서 더 쪼개야 할 때(2차원배열로 만들어진다.)
-// inputs.forEach(
-// 	(input, i) => (inputs[i] = input.split(" ").map((i) => Number(i)))
-// );
+function solution(inputs) {
+	const [n, m] = inputs[0].split(" ").map((v) => Number(v));
 
-function solution(nums) {
-	let ans;
+	const ans = [];
 
 	return ans;
 }
 
-console.log(solution(inputs));
+console.log(solution(inputs).join("\n"));

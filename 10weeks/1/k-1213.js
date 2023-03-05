@@ -14,7 +14,7 @@ function solution(input) {
 	});
 
 	let mid = "";
-	let ret = "";
+	let ans = "";
 	let flag = 0;
 	const alphasR = Array.from({length: 26}, (_, i) => String.fromCharCode(65 + 25 - i));
 
@@ -29,13 +29,13 @@ function solution(input) {
 		}
 
 		for (let j = 0; j < map[al]; j += 2) {
-			ret = al + ret + al;
+			ans = al + ans + al;
 		}
 	}
 
 	if (flag === 2) return "I'm Sorry Hansoo";
-	if (mid) ret = ret.slice(0, ret.length / 2) + mid + ret.slice(ret.length / 2);
-	return ret;
+	if (mid) ans = ans.slice(0, ans.length / 2) + mid + ans.slice(ans.length / 2);
+	return ans;
 }
 
 console.log(solution(Array.from(inputs[0]).join("")) || "I'm Sorry Hansoo");

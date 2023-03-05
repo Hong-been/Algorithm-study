@@ -3,21 +3,16 @@ const filePath = process.platform === "linux" ? "/dev/stdin" : "input.txt";
 const inputs = fs.readFileSync(filePath).toString().trim().split("\n");
 
 function solution(input) {
-	let map = {};
-
-	input.split("").forEach((v) => {
+	// 1. set up map
+	const map = {};
+	Array.from(input).forEach((v) => {
 		if (map[v]) map[v]++;
 		else map[v] = 1;
 	});
-	map = Object.keys(map)
-		.sort()
-		.reduce((acc, key) => {
-			acc[key] = map[key];
-			return acc;
-		}, {});
 
-	let ans = Array(input.length);
-	if (input.length % 2 === 0) {
+	// 2-for even length
+	if (!(input.length & 1)) {
+		const ans = Array(input.length);
 		let i = 0;
 		while (i < ans.length / 2) {
 			for (let [ch, cnt] of Object.entries(map)) {
@@ -35,10 +30,9 @@ function solution(input) {
 		return ans.join("");
 	}
 
-	// 홀수
+	// 2-for odd length
 	let i = 0;
-	ans = Array(input.length);
-	// 5짜리면 i는 1에서 나온다.
+	const ans = Array(input.length);
 	while (i < (ans.length - 1) / 2) {
 		let j = i;
 		for (let ch of Object.keys(map)) {
@@ -60,6 +54,4 @@ function solution(input) {
 	return ans.join("");
 }
 
-console.log(
-	solution(inputs[0].split("").sort().join("")) || "I'm Sorry Hansoo"
-);
+console.log(solution(Array.from(inputs[0]).sort().join("")) || "I'm Sorry Hansoo");

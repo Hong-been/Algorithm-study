@@ -18,4 +18,6 @@ console.log(x === y);
  1. 빅인트는 빅인트끼리만 연산가능함.(나누기 2 이런거 안됨)
  2. console.log하면 가장 끝에 n이 붙은 형태가 그대로 나온다.
   - BigInt(num).toString() 해주어야 n빼고 문자열로 나옴.
+ 3. BigInt는 객체이고 typeof로 찍으면 BigInt가 나옴
+ 4. BigInt -> Number 변환은 부정확할 수 있다. 
  */

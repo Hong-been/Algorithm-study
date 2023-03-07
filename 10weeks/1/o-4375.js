@@ -10,7 +10,7 @@ function solution(inputs) {
 		let t = "1";
 		let i = 1;
 		while (true) {
-			const st = t.repeat(i); //bigint
+			const st = t.repeat(i);
 			if (BigInt(st) % BigInt(n)) {
 				i++;
 			} else {

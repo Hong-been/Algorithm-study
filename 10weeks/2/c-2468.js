@@ -49,6 +49,8 @@ function solution(inputs) {
 	for (let i = min; i <= max; i++) {
 		let res = 0;
 		const curMat = mat.map((r) => r.map((v) => (v <= i ? 0 : 1))); //잠기면 0
+		// 비가 내린 경우마다, 39lines 방문처리를 초기화해야하니까,
+		// 무조건 curMat, visited 등 추가메모리가 필요하다.
 
 		for (let n = 0; n < curMat.length; n++) {
 			for (let m = 0; m < curMat[0].length; m++) {

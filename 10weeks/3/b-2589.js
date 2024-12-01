@@ -5,6 +5,12 @@ const inputs = fs.readFileSync(filePath).toString().trim().split("\n");
 /**
  * L 육지
  * W 바다
+ * 지도 크기 n*m 최대 50*50=2500. 최악의 경우 모든 칸이 육지라고 하면
+ * 각 칸에 대해서 모두 BFS를 적용 --> bfs를 2500번 호출한다.
+ * 각 BFS는 2500개의 노드와 2500*4의 간선으로 이루어져있다. O(2500 + 2500*4) = 12500(만 이천)
+ * 
+ * 즉, 시간복잡도는 O(2500 * (2500 + 2500*4)) = 31250000 (3천만..)
+ * visited, queue 공간복잡도 O(n*m)
  */
 function solution(inputs) {
     const [n, m] = inputs[0].split(" ").map(Number);

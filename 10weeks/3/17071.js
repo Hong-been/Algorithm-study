@@ -14,8 +14,7 @@ const inputs = fs.readFileSync(filePath).toString().trim().split("\n");
  * k: 
  * n=5, k=17 이라고하면
  * 
- * 1초뒤
- * n: 
+ * 포기...^^ 홀짝 머라는건지
  */
 function solution(inputs) {
     const [n, k] = inputs[0].split(" ").map(Number);
@@ -23,35 +22,25 @@ function solution(inputs) {
     if(n === k) return 0;
 
     const qn = [[n,0]];
-    const qk = [[k,0]];
-    // 50만*50만 = 250000000000 천억 ㅋㅋㅋㅋㅋ
-    const shortestTime = Array.from({length: 500001}, () => 
-        Array.from({length:500001}, () => 0));
+    const visited = Array.from({length: 500001}, () => 0);
+    visited[n] = 1;
 
-    // 
     while(qn.length > 0) {
         const [curN, curT] = qn.shift();
         const nextN = [curN*2, curN+1, curN-1];
 
         for(let i=0; i<nextN.length; i++){
-            if(nextN[i] > 500000) continue;
+            if(nextN[i] < 0 ||nextN[i] > 500000) continue;
+            const nextT = curT+1;
+            const brotherPosition = k + ((nextT+1) * (nextT))/2;
+            if(brotherPosition > 500000) return -1;
 
-            shortestTime[curT+1][nextN[i]] = curT+1;
-            qn.push([nextN[i], curT+1]);
-        }
-    }
+            // console.log(nextN[i], brotherPosition)
+            if(nextN[i] === brotherPosition) return nextT;
 
-    while(qk.length >0){
-        const [curK, curT] = qk.shift();
-        const nextK = [curK+(curT+1), curK-((curT+1))];
-
-        for(let i=0; i<nextK.length; i++){
-            if(nextK[i] > 500000) continue;
-
-            if(shortestTime[curT+1][nextK[i]]){
-                return curT+1;
-            }
-            qk.push([nextK[i], curT+1]);
+            if(visited[nextN[i]]) continue;
+            visited[nextN[i]]=1;
+            qn.push([nextN[i], nextT]);
         }
     }
 
